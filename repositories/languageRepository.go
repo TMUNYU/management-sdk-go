@@ -78,6 +78,6 @@ func (repository LanguageRepository) CreateLanguage(language models.Language) (*
 }
 
 func (repository LanguageRepository) UpdateLanguage(language models.Language) (*models.Language, error) {
-	
+	panic("Not implemented")
 }
 
