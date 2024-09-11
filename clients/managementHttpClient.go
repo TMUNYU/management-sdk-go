@@ -12,16 +12,17 @@ type IManagementClient interface {
 	Get(uri string) ([]byte, error)
 	Post(uri string, payload string) ([]byte, error)
 	Put(uri string, payload string) ([]byte, error)
+	Patch(uri string, payload string) ([]byte, error)
 	Delete(uri string) (bool, error)	
 }
 
-type KontentAiManagementClient struct {
+type KontentAiHttpManagementClient struct {
 	httpClient    http.Client
 	configuration models.KontentManagementConfiguration
 }
 
 func NewKontentManagementClient(configuration models.KontentManagementConfiguration) IManagementClient {
-	var client = IManagementClient(KontentAiManagementClient{
+	var client = IManagementClient(KontentAiHttpManagementClient{
 		httpClient: http.Client{},
 		configuration: configuration,
 	})
@@ -29,19 +30,23 @@ func NewKontentManagementClient(configuration models.KontentManagementConfigurat
 	return client
 }
 
-func (client KontentAiManagementClient) Get(uri string) ([]byte, error) {
+func (client KontentAiHttpManagementClient) Get(uri string) ([]byte, error) {
 	return performRequest(client, http.MethodGet, uri, "", evaluateSuccessStatusCodeSuccessDefault)
 }
 
-func (client KontentAiManagementClient) Post(uri string, payload string) ([]byte, error) {
+func (client KontentAiHttpManagementClient) Post(uri string, payload string) ([]byte, error) {
 	return performRequest(client, http.MethodPost, uri, payload, evaluateSuccessStatusCodeSuccessDefault)
 }
 
-func (client KontentAiManagementClient) Put(uri string, payload string) ([]byte, error) {
+func (client KontentAiHttpManagementClient) Put(uri string, payload string) ([]byte, error) {
 	return performRequest(client, http.MethodPut, uri, payload, evaluateSuccessStatusCodeSuccessDefault)
 }
 
-func (client KontentAiManagementClient) Delete(uri string) (bool, error) {
+func (client KontentAiHttpManagementClient) Patch(uri string, payload string) ([]byte, error) {
+	return performRequest(client, http.MethodPatch, uri, payload, evaluateSuccessStatusCodeSuccessDefault)
+}
+
+func (client KontentAiHttpManagementClient) Delete(uri string) (bool, error) {
 	_, err := performRequest(client, http.MethodDelete, uri, "", evaluateSuccessStatusCodeSuccessDefault)
 
 	if err != nil {
@@ -51,7 +56,7 @@ func (client KontentAiManagementClient) Delete(uri string) (bool, error) {
 	return true, nil
 }
 
-func performRequest(client KontentAiManagementClient, method string, uri string, payload string, isSuccess func(s int) bool) ([]byte, error) {
+func performRequest(client KontentAiHttpManagementClient, method string, uri string, payload string, isSuccess func(s int) bool) ([]byte, error) {
 	req, err := prepareRequest(client, method, sanitizeUri(uri))
 
 	if err != nil {
@@ -87,7 +92,7 @@ func performRequest(client KontentAiManagementClient, method string, uri string,
 	return bytes, nil
 }
 
-func prepareRequest(client KontentAiManagementClient, method string, uri string) (*http.Request, error) {
+func prepareRequest(client KontentAiHttpManagementClient, method string, uri string) (*http.Request, error) {
 	var url, err = models.NewUrlWithSegments(client.configuration.Url, []string{"v2", "projects", client.configuration.EnvironmentId, uri})
 	if err != nil {
 		return nil, err
