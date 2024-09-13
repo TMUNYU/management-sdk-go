@@ -1,6 +1,7 @@
 package models
 
 type KontentResponseWrapper struct {
-	Languages  []Language `json:"languages"`
+	Types      []ContentType     `json:"types,omitempty"`
+	Languages  []Language `json:"languages,omitempty"`
 	Pagination Pagination `json:"pagination"`
 }

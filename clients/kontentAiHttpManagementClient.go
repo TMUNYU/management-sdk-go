@@ -21,7 +21,7 @@ type KontentAiHttpManagementClient struct {
 	configuration models.KontentManagementConfiguration
 }
 
-func NewKontentManagementClient(configuration models.KontentManagementConfiguration) IManagementClient {
+func NewKontentAiHttpManagementClient(configuration models.KontentManagementConfiguration) IManagementClient {
 	var client = IManagementClient(KontentAiHttpManagementClient{
 		httpClient: http.Client{},
 		configuration: configuration,
