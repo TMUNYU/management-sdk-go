@@ -38,7 +38,7 @@ func (repository LanguageRepository) GetLanguages() (*[]models.Language, error) 
 
 func (repository LanguageRepository) GetLanguage(id string) (*models.Language, error) {
 	htpClient := repository.client
-	resp, error := htpClient.Get("languages" + id)
+	resp, error := htpClient.Get("languages/" + id)
 
 	if error != nil {
 		return nil, error

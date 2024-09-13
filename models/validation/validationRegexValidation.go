@@ -1,6 +1,6 @@
-package models
+package validation
 
-type ValidationRegex struct {
+type ValidationRegexValidation struct {
 	Regex             string `json:"regex"`
 	Flags             string `json:"flags"`
 	ValidationMessage string `json:"validation_message"`

@@ -53,6 +53,55 @@ func (repository ContentTypeRepository) GetContentTypes() (*[]models.ContentType
 	return &types, nil	
 }
 
+func (repository ContentTypeRepository) GetContentType(id string) (*models.ContentType, error) {
+	htpClient := repository.client
+	resp, error := htpClient.Get("types/" + id)
+
+	if error != nil {
+		return nil, error
+	}
+
+	var contentType models.ContentType
+	
+	error = json.Unmarshal(resp, &contentType)
+	if error != nil {
+		return nil, error		
+	}
+	
+	for _, elementRaw := range contentType.ElementsRaw {
+		var element, err = unmarshallElement(elementRaw)
+		if err != nil {
+			return nil, err
+		}
+		contentType.Elements = append(contentType.Elements, *element)
+	}
+
+	return &contentType, nil	
+}
+
+func (repository ContentTypeRepository) CreateContentType(contentType models.ContentType) (*models.ContentType, error) {
+		httpClient := repository.client
+
+	payload, error := json.Marshal(contentType)
+	if error != nil {
+		return nil, error
+	}
+
+	resp, error := httpClient.Post("types", string(payload))
+	if error != nil {
+		return nil, error
+	}
+
+	var createContentType models.ContentType
+	
+	error = json.Unmarshal(resp, &createContentType)
+	if error != nil {
+		return nil, error		
+	}
+
+	return &createContentType, nil	
+}
+
 func unmarshallElement(data json.RawMessage) (*models.BaseElement, error) {
 	var element models.BaseElement
 	var err = json.Unmarshal(data, &element)
