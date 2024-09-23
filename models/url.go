@@ -14,7 +14,7 @@ type Url struct {
 
 func NewUrlWithSegments(url string, segments []string) (Url, error) {
 	guards.UrlSyntacticallyValid(url)
-	
+
 	var urlObj, err = parseUrl(url)
 	if err != nil {
 		return Url{}, err
@@ -60,7 +60,7 @@ func parseUrl(url string) (Url, error) {
 		for _, querySegment := range querySegments {
 			var queryParam = strings.Split(querySegment, "=")
 			queryParams[queryParam[0]] = queryParam[1]
-		}		
+		}
 	}
 
 	var urlObj = Url{

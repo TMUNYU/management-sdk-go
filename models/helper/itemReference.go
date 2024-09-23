@@ -1,4 +1,4 @@
-package models
+package helper_models
 
 import (
 	"errors"
@@ -22,7 +22,7 @@ func (lang ItemReference) GetDifferences(newModel interface{}) ([]difference.Dif
 
 	if lang.Id != newItemRef.Id {
 		differences = append(differences, difference.Difference{
-			Operation: "replace",
+			Operation:    "replace",
 			PropertyName: "id",
 			Value:        newItemRef.Id,
 		})
@@ -30,7 +30,7 @@ func (lang ItemReference) GetDifferences(newModel interface{}) ([]difference.Dif
 
 	if lang.Codename != newItemRef.Codename {
 		differences = append(differences, difference.Difference{
-			Operation: "replace",
+			Operation:    "replace",
 			PropertyName: "codename",
 			Value:        newItemRef.Codename,
 		})
@@ -38,7 +38,7 @@ func (lang ItemReference) GetDifferences(newModel interface{}) ([]difference.Dif
 
 	if lang.ExternalId != newItemRef.ExternalId {
 		differences = append(differences, difference.Difference{
-			Operation: "replace",
+			Operation:    "replace",
 			PropertyName: "external_id",
 			Value:        newItemRef.ExternalId,
 		})

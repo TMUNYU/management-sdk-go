@@ -1,4 +1,4 @@
-package models
+package helper_models
 
 type Pagination struct {
 	ContinuationToken string `json:"continuation_token"`

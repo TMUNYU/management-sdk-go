@@ -1,4 +1,4 @@
-package models
+package helper_models
 
 type DependsOn struct {
 	Element ItemReference `json:"element,omitempty"`

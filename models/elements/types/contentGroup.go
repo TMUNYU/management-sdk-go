@@ -1,4 +1,4 @@
-package models
+package helper_types
 
 type ContentGroup struct {
 	Id       string `json:"id"`

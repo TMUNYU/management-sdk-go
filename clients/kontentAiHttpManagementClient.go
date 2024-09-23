@@ -13,7 +13,7 @@ type IManagementClient interface {
 	Post(uri string, payload string) ([]byte, error)
 	Put(uri string, payload string) ([]byte, error)
 	Patch(uri string, payload string) ([]byte, error)
-	Delete(uri string) (bool, error)	
+	Delete(uri string) (bool, error)
 }
 
 type KontentAiHttpManagementClient struct {
@@ -23,7 +23,7 @@ type KontentAiHttpManagementClient struct {
 
 func NewKontentAiHttpManagementClient(configuration models.KontentManagementConfiguration) IManagementClient {
 	var client = IManagementClient(KontentAiHttpManagementClient{
-		httpClient: http.Client{},
+		httpClient:    http.Client{},
 		configuration: configuration,
 	})
 
