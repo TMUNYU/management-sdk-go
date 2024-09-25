@@ -21,7 +21,7 @@ func Test_ThatDependsOnUnmarshallsCorrectly(t *testing.T) {
 			"codename": "codename"
 		}
 	}`
-	
+
 	err := json.Unmarshal([]byte(jsonData), &objUnderTest)
 
 	if err != nil {

@@ -6,7 +6,7 @@ import (
 )
 
 type KontentResponseWrapper struct {
-	Types      []models.ContentType `json:"types,omitempty"`
-	Languages  []models.Language    `json:"languages,omitempty"`
-	Pagination helper_models.Pagination    `json:"pagination"`
+	Types      []models.ContentType     `json:"types,omitempty"`
+	Languages  []models.Language        `json:"languages,omitempty"`
+	Pagination helper_models.Pagination `json:"pagination"`
 }
