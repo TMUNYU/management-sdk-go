@@ -34,6 +34,10 @@ func (d *ContentType) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
+	if aux.ElementsRaw == nil {
+		return nil
+	}
+
 	for _, elementsRaw := range *aux.ElementsRaw {
 		var err error
 		var element any
