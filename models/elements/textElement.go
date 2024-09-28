@@ -8,12 +8,11 @@ import (
 
 type TextElement struct {
 	BaseElement
-	Guidelines        string                             `json:"guidelines"`
-	IsRequired        bool                               `json:"is_required"`
-	IsNonLocalizable  bool                               `json:"is_non_localizable"`
-	Type              string                             `json:"type"`
-	ValidationRegex   validation.RegexValidation         `json:"validation_regex"`
-	MaximumTextLength validation.MaxTextLengthValidation `json:"maximum_text_length"`
-	Default           helper_types.DefaultValue          `json:"default"`
-	ContentGroup      helper_models.ItemReference        `json:"content_group"`
+	Guidelines        string                              `json:"guidelines,omitempty"`
+	IsRequired        bool                                `json:"is_required,omitempty"`
+	IsNonLocalizable  bool                                `json:"is_non_localizable,omitempty"`
+	ValidationRegex   *validation.RegexValidation         `json:"validation_regex,omitempty"`
+	MaximumTextLength *validation.MaxTextLengthValidation `json:"maximum_text_length,omitempty"`
+	Default           *helper_types.DefaultValue          `json:"default,omitempty"`
+	ContentGroup      *helper_models.ItemReference        `json:"content_group,omitempty"`
 }

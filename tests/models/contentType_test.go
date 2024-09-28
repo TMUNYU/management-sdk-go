@@ -122,10 +122,8 @@ func Test_ThatContentTypeUnmarshallsElementsCorrectly(t *testing.T) {
 	}
 
 	if len(objUnderTest.Elements) != 2 {
-		t.Errorf("Expected 2 elements, got %d", len(objUnderTest.Elements))		
+		t.Errorf("Expected 2 elements, got %d", len(objUnderTest.Elements))
 	}
-
-
 
 	if objUnderTest.Elements[0].(*elements.SlugElement).Guidelines != "This is a manually added element" {
 		t.Errorf("SlugElement.Guidelines is not equal")

@@ -5,6 +5,7 @@ import (
 	"kontentaimanagementsdkgo/clients"
 	"kontentaimanagementsdkgo/models"
 	"kontentaimanagementsdkgo/models/wrappers"
+	"log"
 )
 
 type ContentTypeRepository struct {
@@ -39,8 +40,8 @@ func (repository ContentTypeRepository) GetContentTypes() (*[]models.ContentType
 }
 
 func (repository ContentTypeRepository) GetContentType(id string) (*models.ContentType, error) {
-	htpClient := repository.client
-	resp, err := htpClient.Get("types/" + id)
+	httpClient := repository.client
+	resp, err := httpClient.Get("types/" + id)
 
 	if err != nil {
 		return nil, err
@@ -57,5 +58,25 @@ func (repository ContentTypeRepository) GetContentType(id string) (*models.Conte
 }
 
 func (repository ContentTypeRepository) CreateContentType(contentType models.ContentType) (*models.ContentType, error) {
-	panic("not implemented")
+	httpClient := repository.client
+
+	payload, err := json.Marshal(contentType)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Println(string(payload))
+
+	result, err := httpClient.Post("types", string(payload))
+	if err != nil {
+		return nil, err
+	}
+
+	var newContentType models.ContentType
+	err = json.Unmarshal(result, &newContentType)
+	if err != nil {
+		return nil, err
+	}
+
+	return &newContentType, nil
 }
