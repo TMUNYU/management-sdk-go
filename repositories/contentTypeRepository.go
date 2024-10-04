@@ -2,17 +2,17 @@ package repositories
 
 import (
 	"encoding/json"
-	"kontentaimanagementsdkgo/clients"
+	"kontentaimanagementsdkgo/http_clients"
 	"kontentaimanagementsdkgo/models"
 	"kontentaimanagementsdkgo/models/wrappers"
 	"log"
 )
 
 type ContentTypeRepository struct {
-	client clients.IManagementClient
+	client http_clients.IKontentAiManagementClient
 }
 
-func NewContentTypeRepository(client clients.IManagementClient) ContentTypeRepository {
+func NewContentTypeRepository(client http_clients.IKontentAiManagementClient) ContentTypeRepository {
 	var repository = ContentTypeRepository{
 		client: client,
 	}

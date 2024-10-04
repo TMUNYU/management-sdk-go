@@ -2,17 +2,16 @@ package repositories
 
 import (
 	"encoding/json"
-	"errors"
-	"kontentaimanagementsdkgo/clients"
+	"kontentaimanagementsdkgo/http_clients"
 	"kontentaimanagementsdkgo/models"
 	"kontentaimanagementsdkgo/models/wrappers"
 )
 
 type LanguageRepository struct {
-	client clients.IManagementClient
+	client http_clients.IKontentAiManagementClient
 }
 
-func NewLanguageRepository(client clients.IManagementClient) LanguageRepository {
+func NewLanguageRepository(client http_clients.IKontentAiManagementClient) LanguageRepository {
 	var repository = LanguageRepository{
 		client: client,
 	}
@@ -76,39 +75,4 @@ func (repository LanguageRepository) CreateLanguage(language models.Language) (*
 	}
 
 	return &createdLanguage, nil
-}
-
-func (repository LanguageRepository) UpdateLanguage(old models.Language, new models.Language) (*models.Language, error) {
-	var differences, err = old.GetDifferences(new)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(differences) == 0 {
-		return &old, nil
-	}
-
-	if !old.IsActive && old.IsActive == new.IsActive && differences[0].PropertyName != "is_active" {
-		return nil, errors.New("cannot update an inactive language. Until activated, only action allowed is to activate the language")
-	}
-
-	payload, err := json.Marshal(differences)
-	if err != nil {
-		return nil, err
-	}
-
-	htpClient := repository.client
-
-	resp, err := htpClient.Patch("languages/"+old.Id, string(payload))
-	if err != nil {
-		return nil, err
-	}
-
-	var updatedLanguage models.Language
-	err = json.Unmarshal(resp, &updatedLanguage)
-	if err != nil {
-		return nil, err
-	}
-
-	return &updatedLanguage, nil
 }

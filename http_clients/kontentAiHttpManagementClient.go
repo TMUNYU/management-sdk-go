@@ -1,4 +1,4 @@
-package clients
+package http_clients
 
 import (
 	"errors"
@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-type IManagementClient interface {
+type IKontentAiManagementClient interface {
 	Get(uri string) ([]byte, error)
 	Post(uri string, payload string) ([]byte, error)
 	Put(uri string, payload string) ([]byte, error)
@@ -21,8 +21,8 @@ type KontentAiHttpManagementClient struct {
 	configuration models.KontentManagementConfiguration
 }
 
-func NewKontentAiHttpManagementClient(configuration models.KontentManagementConfiguration) IManagementClient {
-	var client = IManagementClient(KontentAiHttpManagementClient{
+func NewKontentAiHttpManagementClient(configuration models.KontentManagementConfiguration) IKontentAiManagementClient {
+	var client = IKontentAiManagementClient(KontentAiHttpManagementClient{
 		httpClient:    http.Client{},
 		configuration: configuration,
 	})

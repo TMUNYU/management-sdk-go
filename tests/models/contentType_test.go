@@ -204,14 +204,14 @@ func Test_ThatContentTypeMarshallsElementsCorrectly(t *testing.T) {
 		IsRequired:       false,
 		IsNonLocalizable: true,
 		ExternalID:       "my-number",
-		Default: helper_types.DefaultValue{
+		Default: &helper_types.DefaultValue{
 			Global: struct {
 				Value any `json:"value"`
 			}{
 				Value: 42,
 			},
 		},
-		ContentGroup: helper_types.ContentGroup{
+		ContentGroup: &helper_types.ContentGroup{
 			Id: "ad1b8cce-94d6-4682-a9ff-393d494e3a02",
 		},
 	}
